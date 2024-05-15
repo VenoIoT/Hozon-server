@@ -14,6 +14,9 @@ return new class extends Migration {
 
             $table->ulid('id')->primary();
 
+            $table->ulid('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade')->onUpdate('cascade');
+
             $table->string('title');
             $table->string('site');
             $table->text('credentials');
