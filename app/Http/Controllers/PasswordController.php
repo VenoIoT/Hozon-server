@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Password;
 use Illuminate\Http\Request;
+use App\Services\ResponseService;
+use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(protected ResponseService $responseService)
+    {
+    }
     public function index()
     {
         //
@@ -28,15 +30,77 @@ class PasswordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            Password::create(
+                [
+                    'title' => $request->title,
+                    'site' => $request->site,
+                    'user_id' => Auth::user()->id,
+                    'password' => $request->password,
+                    'note' => $request->note,
+                    'organization_id' => $request->organization_id,
+                    'email' => $request->email,
+
+                ]
+            );
+
+            return $this->responseService->successResponse('Password stored Successfully');
+
+        } catch (\Throwable $th) {
+
+            return $this->responseService->exceptionErrorResponse(
+                "Issue storing Organization's password",
+                "Issue storing Organization's password",
+                $th->getMessage()
+            );
+
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Password $password)
+    public function show(Request $request)
     {
-        //
+
+        try {
+
+            return $this->responseService->successResponse(
+                Password::where('organization_id', $request->organization_id)->get()
+            );
+
+
+        } catch (\Throwable $th) {
+
+            return $this->responseService->exceptionErrorResponse(
+                'Issue getting Organizations passwords',
+                'Issue getting Organizations passwords',
+                $th->getMessage()
+            );
+
+        }
+    }
+
+    public function specificPasswordDetails(Request $request)
+    {
+       
+
+        try {
+            return $this->responseService->successResponse(
+                Password::where('id', $request->password_id)->first()
+            );
+
+
+        } catch (\Throwable $th) {
+
+            return $this->responseService->exceptionErrorResponse(
+                'Issue getting  password details',
+                'Issue getting  passwords details',
+                $th->getMessage()
+            );
+
+        }
     }
 
     /**

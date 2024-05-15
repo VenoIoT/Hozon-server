@@ -14,12 +14,16 @@ return new class extends Migration {
 
             $table->ulid('id')->primary();
 
+            $table->ulid('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
             $table->ulid('organization_id');
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->string('title');
-            $table->string('site');
-            $table->text('credentials');
+            $table->text('title');
+            $table->text('site');
+            $table->text('email');
+            $table->text('password');
             $table->string('note');
 
 
