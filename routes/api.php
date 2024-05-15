@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\MobileAuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,7 +12,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
-
+    Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/organizations', [OrganizationController::class, 'store']);
     Route::get('/organizations/{organization_id}', [OrganizationController::class, 'show']);
     Route::get('/organizations', [OrganizationController::class, 'index']);
