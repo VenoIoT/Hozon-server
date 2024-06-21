@@ -19,8 +19,10 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/organizations', [OrganizationController::class, 'index']);
 
     Route::post('/password', [PasswordController::class, 'store']);
+
     Route::get('/password/{organization_id}', [PasswordController::class, 'show']);
     Route::get('/password-details/{password_id}', [PasswordController::class, 'specificPasswordDetails']);
+    
 
 });
 
