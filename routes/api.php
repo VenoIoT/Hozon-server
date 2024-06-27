@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\MobileAuthController;
+//use App\Http\Controllers\Auth\MobileAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PasswordController;
@@ -27,5 +27,5 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
 });
 
 
-Route::post('v1/mobile-login', [MobileAuthController::class, 'loginMobileApp']);
-Route::post('v1/mobile-register', [MobileAuthController::class, 'register']);
+// Route::post('v1/mobile-login', [MobileAuthController::class, 'loginMobileApp']);
+// Route::post('v1/mobile-register', [MobileAuthController::class, 'register']);
